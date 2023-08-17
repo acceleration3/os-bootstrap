@@ -59,6 +59,16 @@ Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds -Na
 # Button mode search
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name SearchboxTaskbarMode -Value 1
 
+# Disable cloud search and Microsoft Rewards
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\SearchSettings -Name IsAADCloudSearchEnabled -Value 0
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\SearchSettings -Name IsMSACloudSearchEnabled -Value 0
+
+# Disable search suggestions
+Set-ItemProperty -Path HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer -Name DisableSearchBoxSuggestions -Value 1
+
+# Disable search highlights
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds\DSB -Name ShowDynamicContent -Value 0
+
 # Remove task view
 Set-ItemProperty -Path $CUExplorerPath -Name ShowTaskViewButton -Value 0
 
@@ -114,18 +124,33 @@ if (!$HasWinget) {
     Write-Host "Installed winget"
 }
 
-# Install apps
+# Common apps
 winget install Brave.Brave
-winget install Discord.Discord
-winget install Discord.Discord.Canary
+winget install 7zip.7zip
+winget install VideoLAN.VLC
+
+# Development apps
 winget install vscode
+winget install Kitware.CMake
 winget install Git.Git
+winget install Oracle.VirtualBox
 winget install chrisant996.Clink
 winget install Microsoft.WindowsTerminal
+winget install Python.Python.3.10
+winget install Microsoft.VCRedist.2010.x86
+winget install Microsoft.VCRedist.2010.x64
+winget install Microsoft.VCRedist.2015+.x64
+winget install Microsoft.VCRedist.2015+.x86
+
+# Personal apps
+winget install Discord.Discord
+winget install Discord.Discord.Canary
 winget install VB-Audio.Voicemeeter.Banana
-winget install 7zip.7zip
-winget install subhra74.XtremeDownloadManager
+winget install SoftDeluxe.FreeDownloadManager
 winget install Valve.Steam
+winget install qbittorrent.qbittorrent
+winget install OBSProject.OBSStudio
+winget install HandBrake.HandBrake
 
 # Install VS Code extensions
 $Extensions = @(
@@ -135,7 +160,7 @@ $Extensions = @(
     "AlexDauenhauer.catppuccin-noctis",
     "thang-nm.catppuccin-perfect-icons",
     "MS-vsliveshare.vsliveshare",
-    "ritwickdey.LiveServer"
+    "ms-vscode.live-server"
 )
 
 foreach ($Entry in $Extensions) {
