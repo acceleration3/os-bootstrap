@@ -14,7 +14,7 @@ echo "Updating system..."
 sudo pacman -Syuu > /dev/null
 
 echo "Installing packages..."
-sudo pacman -S --noconfirm --needed git gcc mingw-w64-gcc cmake ninja gdb valgrind clang discord steam wine winetricks code fish fastfetch > /dev/null
+sudo pacman -S --noconfirm --needed git gcc mingw-w64-gcc cmake ninja gdb valgrind clang discord steam wine winetricks lib32-pipewire lib32-libpulse code fish fastfetch > /dev/null
 
 yay_temp_dir="/tmp/bootstrap-yay"
 if ! pacman -Qs "yay" > /dev/null ; then
